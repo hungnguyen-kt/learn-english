@@ -206,6 +206,39 @@ function speakWord(word: string) {
   window.speechSynthesis.speak(utterance);
 }
 
+function exampleFor(verb: Verb, form: "base" | "past" | "participle") {
+  const word = verb[
+    form === "base"
+      ? "infinitive"
+      : form === "past"
+        ? "past_simple"
+        : "past_participle"
+  ]
+    .replace(/\s*\([^)]*\)/g, "")
+    .split("/")[0]
+    .trim();
+
+  if (verb.infinitive === "be") {
+    if (form === "base") return "I want to be kind.";
+    if (form === "past") return "I was kind yesterday.";
+    return "I have been kind.";
+  }
+  if (verb.infinitive === "have") {
+    if (form === "base") return "I want to have a dog.";
+    if (form === "past") return "I had a dog.";
+    return "I have had a dog.";
+  }
+  if (verb.infinitive === "cost") {
+    if (form === "base") return "It may cost five dollars.";
+    if (form === "past") return "It cost five dollars yesterday.";
+    return "It has cost five dollars.";
+  }
+
+  if (form === "base") return `I want to ${word}.`;
+  if (form === "past") return `I ${word} yesterday.`;
+  return `I have ${word}.`;
+}
+
 function PronouncedForms({ value }: { value: string }) {
   const pronunciation = value.match(/\(([^)]+)\)/)?.[1];
   const forms = value
@@ -330,12 +363,21 @@ export default function IrregularVerbTable() {
               >
                 <th scope="row" className="px-3 py-2.5 font-semibold">
                   <PronouncedForms value={verb.infinitive} />
+                  <span className="mt-1 block text-xs font-normal leading-relaxed text-ink/55">
+                    {exampleFor(verb, "base")}
+                  </span>
                 </th>
                 <td className="px-3 py-2.5">
                   <PronouncedForms value={verb.past_simple} />
+                  <span className="mt-1 block text-xs leading-relaxed text-ink/55">
+                    {exampleFor(verb, "past")}
+                  </span>
                 </td>
                 <td className="px-3 py-2.5">
                   <PronouncedForms value={verb.past_participle} />
+                  <span className="mt-1 block text-xs leading-relaxed text-ink/55">
+                    {exampleFor(verb, "participle")}
+                  </span>
                 </td>
                 <td className="px-3 py-2.5">{verb.meaning}</td>
               </tr>

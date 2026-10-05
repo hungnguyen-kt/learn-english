@@ -517,7 +517,7 @@ export default function IrregularVerbTable() {
       aria-labelledby="verb-table-title"
       className="mt-10 rounded-2xl bg-white p-4 ring-1 ring-mist sm:p-6"
     >
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
         <div>
           <p className="text-sm font-semibold uppercase text-sea">
             Bảng tra cứu
@@ -532,17 +532,33 @@ export default function IrregularVerbTable() {
             {VERBS.length} động từ, sắp xếp A–Z
           </p>
         </div>
-        <label className="w-full sm:max-w-xs">
-          <span className="sr-only">Tìm động từ</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Tìm theo V1, V2 hoặc V3"
-            className="w-full rounded-lg border border-mist bg-white px-3 py-2 text-sm outline-none focus:border-sea"
-          />
-        </label>
       </div>
+
+      <div className="mt-5 border-y border-mist py-4">
+        <h3 className="font-semibold">Động từ bất quy tắc là gì?</h3>
+        <p className="mt-1 text-sm leading-relaxed text-ink/70">
+          Động từ bất quy tắc (Irregular Verbs) là những động từ có dạng quá khứ
+          đơn (V2) và quá khứ phân từ (V3) không được tạo theo quy tắc thông
+          thường thêm -ed; hình thức của chúng có thể thay đổi hoặc giữ nguyên
+          tùy động từ.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-ink/70">
+          Vì không có một quy tắc thống nhất áp dụng cho tất cả, người học cần
+          ghi nhớ từng dạng. Mỗi động từ thường được tra theo ba dạng: nguyên
+          thể (V1), quá khứ đơn (V2) và quá khứ phân từ (V3).
+        </p>
+      </div>
+
+      <label className="mt-4 block w-full sm:max-w-xs">
+        <span className="sr-only">Tìm động từ</span>
+        <input
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Tìm theo V1, V2 hoặc V3"
+          className="w-full rounded-lg border border-mist bg-white px-3 py-2 text-sm outline-none focus:border-sea"
+        />
+      </label>
 
       <div
         className="mt-4 flex gap-1 overflow-x-auto pb-1"

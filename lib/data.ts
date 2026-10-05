@@ -90,6 +90,35 @@ export const LEVEL0_MODULES: Module[] = [
       { slug: "sentences-check", title: "Kiểm tra cuối module", minutes: 10, skills: ["review", "practice"] },
     ],
   },
+  {
+    slug: "ipa",
+    title: "Phát âm chuẩn IPA",
+    short: "Phát âm IPA",
+    description: "Làm quen bảng phiên âm quốc tế IPA để nhận diện và phát âm chính xác các âm tiếng Anh.",
+    lessons: [
+      { slug: "ipa-vowels", title: "Nguyên âm đơn trong IPA", minutes: 12, skills: ["pronunciation", "listening"] },
+      { slug: "ipa-consonants", title: "Phụ âm trong IPA", minutes: 12, skills: ["pronunciation", "speaking"] },
+      { slug: "ipa-diphthongs", title: "Nguyên âm đôi", minutes: 10, skills: ["pronunciation", "listening"] },
+      { slug: "voiced-unvoiced", title: "Phân biệt âm hữu thanh và vô thanh", minutes: 10, skills: ["pronunciation", "listening", "practice"] },
+      { slug: "ipa-word-stress", title: "Đọc phiên âm và xác định trọng âm", minutes: 12, skills: ["pronunciation", "reading"] },
+      { slug: "ipa-practice", title: "Luyện đọc phiên âm từ vựng", minutes: 12, skills: ["pronunciation", "speaking", "practice"] },
+    ],
+  },
+  {
+    slug: "irregular-verbs",
+    title: "Bảng 360 động từ bất quy tắc trong tiếng Anh",
+    short: "Table of irregular verbs",
+    description: "Tra cứu và ghi nhớ động từ bất quy tắc qua dạng nguyên thể, quá khứ đơn, quá khứ phân từ và cách dùng.",
+    lessons: [
+      { slug: "verb-forms", title: "Ba dạng của động từ bất quy tắc", minutes: 10, skills: ["grammar", "vocabulary"] },
+      { slug: "same-forms", title: "Nhóm động từ có ba dạng giống nhau", minutes: 12, skills: ["vocabulary", "reading"] },
+      { slug: "past-same-participle", title: "Nhóm có quá khứ đơn và phân từ giống nhau", minutes: 12, skills: ["vocabulary", "grammar"] },
+      { slug: "vowel-changes", title: "Nhóm biến đổi nguyên âm", minutes: 12, skills: ["vocabulary", "pronunciation"] },
+      { slug: "other-patterns", title: "Các nhóm biến đổi đặc biệt", minutes: 12, skills: ["vocabulary", "grammar"] },
+      { slug: "verb-usage", title: "Dùng động từ trong câu quá khứ và hoàn thành", minutes: 15, skills: ["grammar", "writing", "practice"] },
+      { slug: "verbs-review", title: "Ôn tập động từ bất quy tắc", minutes: 15, skills: ["review", "practice"] },
+    ],
+  },
 ];
 
 export const ALPHABET = [

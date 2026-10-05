@@ -6,6 +6,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SkillChip from "@/components/SkillChip";
 import SkillIcon from "@/components/SkillIcon";
 import AlphabetBoard from "@/components/AlphabetBoard";
+import IPAChart from "@/components/IPAChart";
+import IrregularVerbTable from "@/components/IrregularVerbTable";
 
 export function generateStaticParams() {
   return LEVEL0_MODULES.map((m) => ({ id: "0", module: m.slug }));
@@ -42,6 +44,8 @@ export default function ModulePage({ params }: { params: { id: string; module: s
           <AlphabetBoard />
         </div>
       )}
+      {mod.slug === "ipa" && <IPAChart />}
+      {mod.slug === "irregular-verbs" && <IrregularVerbTable />}
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_260px]">
         <section aria-labelledby="lessons">

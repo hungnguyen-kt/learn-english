@@ -43,7 +43,7 @@ export default function LevelPage({ params }: { params: { id: string } }) {
 
       {open ? (
         <section aria-labelledby="modules" className="mt-12">
-          <h2 id="modules" className="font-display text-2xl font-bold">Ba module của Level 0</h2>
+          <h2 id="modules" className="font-display text-2xl font-bold">Các module của Level 0</h2>
           <ol className="mt-5 grid gap-4 md:grid-cols-3">
             {modules.map((m, idx) => {
               const mins = m.lessons.reduce((a, l) => a + l.minutes, 0);

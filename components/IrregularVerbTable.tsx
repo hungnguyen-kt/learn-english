@@ -3,6 +3,7 @@
 import { useDeferredValue, useState } from "react";
 import { Volume2 } from "lucide-react";
 import verbData from "node-english-irregular-verbs";
+import irregularVerbData from "@/lib/irregular-verbs.json";
 
 type Verb = {
   infinitive: string;
@@ -167,17 +168,243 @@ const MEANINGS: Record<string, string> = {
   write: "viết",
 };
 
+const ADDITIONAL_MEANINGS: Record<string, string> = {
+  backslide: "sa sút, quay lại thói quen xấu",
+  bid: "đặt giá, đấu thầu; ra lệnh",
+  breed: "nuôi; sinh sản",
+  browbeat: "hăm dọa, bắt nạt",
+  burn: "đốt, cháy",
+  burst: "vỡ tung, bùng nổ",
+  bust: "đập vỡ; bắt giữ",
+  clothe: "mặc quần áo cho",
+  crossbreed: "lai giống",
+  daydream: "mơ mộng ban ngày",
+  disprove: "bác bỏ, chứng minh là sai",
+  dive: "lặn; lao xuống",
+  forego: "từ bỏ, không dùng đến",
+  foresee: "thấy trước, dự đoán",
+  foretell: "tiên đoán",
+  forgive: "tha thứ",
+  forsake: "từ bỏ, ruồng bỏ",
+  frostbite: "làm cóng, bị tê cóng",
+  grind: "nghiền, xay",
+  "hand-feed": "đút, cho ăn bằng tay",
+  handwrite: "viết tay",
+  hew: "đẽo, chặt",
+  inbreed: "giao phối cận huyết",
+  inlay: "khảm, dát",
+  input: "nhập dữ liệu",
+  interbreed: "lai giống",
+  interweave: "đan xen, kết hợp",
+  interwind: "quấn vào nhau",
+  "jerry-build": "xây dựng cẩu thả",
+  "lip-read": "đọc khẩu hình",
+  miscast: "phân vai sai",
+  misdeal: "chia bài sai",
+  misdo: "làm sai",
+  mishear: "nghe nhầm",
+  mislay: "để thất lạc",
+  mislead: "đánh lừa",
+  mislearn: "học sai",
+  misread: "đọc nhầm",
+  misset: "đặt sai, cài đặt sai",
+  misspeak: "nói nhầm",
+  misspell: "viết sai chính tả",
+  misspend: "tiêu xài hoang phí",
+  mistake: "nhầm lẫn",
+  misteach: "dạy sai",
+  misunderstand: "hiểu lầm",
+  miswrite: "viết sai",
+  offset: "bù đắp, đối trọng",
+  outbid: "trả giá cao hơn",
+  outbreed: "sinh sản nhiều hơn",
+  outdo: "vượt trội hơn",
+  outdraw: "rút nhanh hơn; thu hút hơn",
+  outdrink: "uống nhiều hơn",
+  outdrive: "lái xa hơn; đánh xa hơn",
+  outfight: "chiến đấu giỏi hơn",
+  outfly: "bay nhanh hoặc xa hơn",
+  outgrow: "lớn vượt; không còn phù hợp",
+  outleap: "nhảy xa hơn",
+  outride: "cưỡi lâu hoặc giỏi hơn",
+  outrun: "chạy nhanh hơn",
+  outsell: "bán chạy hơn",
+  outshine: "vượt trội, tỏa sáng hơn",
+  outshoot: "bắn giỏi hơn",
+  outsing: "hát hay hơn",
+  outsit: "ngồi lâu hơn",
+  outsleep: "ngủ lâu hơn",
+  outsmell: "ngửi thính hơn",
+  outspeak: "nói giỏi hơn",
+  outspeed: "vượt tốc độ",
+  outspend: "chi tiêu nhiều hơn",
+  outswear: "chửi thề nhiều hơn",
+  outswim: "bơi nhanh hơn",
+  outthink: "suy nghĩ vượt trội hơn",
+  outthrow: "ném xa hơn",
+  outwrite: "viết hay hoặc nhiều hơn",
+  overbid: "trả giá quá cao",
+  overbreed: "nhân giống quá mức",
+  overbuild: "xây dựng quá mức",
+  overbuy: "mua quá nhiều",
+  overcome: "vượt qua",
+  overdo: "làm quá mức",
+  overdraw: "rút quá số dư; phác họa quá mức",
+  overdrink: "uống quá nhiều",
+  overeat: "ăn quá nhiều",
+  overfeed: "cho ăn quá nhiều",
+  overhang: "nhô ra, phủ lên",
+  overhear: "nghe thấy tình cờ",
+  overlay: "phủ lên",
+  overpay: "trả quá nhiều",
+  override: "ghi đè; bác bỏ",
+  overrun: "tràn ngập; vượt quá",
+  oversee: "giám sát",
+  oversell: "bán quá mức; quảng cáo quá lời",
+  oversew: "khâu phủ mép",
+  overshoot: "vượt quá mục tiêu",
+  oversleep: "ngủ quên",
+  overspeak: "nói quá nhiều",
+  overspend: "tiêu quá tay",
+  overspill: "tràn ra",
+  overtake: "vượt qua, bắt kịp",
+  overthink: "nghĩ quá nhiều",
+  overthrow: "lật đổ",
+  overwind: "lên dây cót quá mức",
+  overwrite: "ghi đè",
+  partake: "tham gia; dùng (đồ ăn, thức uống)",
+  plead: "van xin; biện hộ",
+  prebuild: "xây dựng trước",
+  predo: "làm trước",
+  premake: "làm sẵn",
+  prepay: "trả trước",
+  presell: "bán trước",
+  preset: "cài đặt sẵn",
+  preshrink: "làm co trước",
+  proofread: "đọc soát lỗi",
+  "quick-freeze": "cấp đông nhanh",
+  reawake: "đánh thức lại; tỉnh lại",
+  rebid: "đấu giá lại",
+  rebind: "buộc lại; đóng lại (sách)",
+  rebroadcast: "phát lại",
+  rebuild: "xây dựng lại",
+  recast: "đúc lại; phân vai lại",
+  recut: "cắt lại",
+  redeal: "chia lại",
+  redo: "làm lại",
+  redraw: "vẽ lại; rút lại",
+  refit: "lắp lại; sửa sang lại",
+  regrind: "nghiền lại",
+  regrow: "mọc lại",
+  rehang: "treo lại",
+  rehear: "nghe lại; xét xử lại",
+  reknit: "đan lại",
+  relay: "chuyển tiếp; chạy tiếp sức",
+  relearn: "học lại",
+  relight: "thắp sáng lại",
+  remake: "làm lại",
+  repay: "hoàn trả",
+  reread: "đọc lại",
+  rerun: "chạy lại; phát lại",
+  resell: "bán lại",
+  resend: "gửi lại",
+  reset: "đặt lại, thiết lập lại",
+  resew: "khâu lại",
+  retake: "làm lại; chiếm lại",
+  reteach: "dạy lại",
+  retear: "xé lại",
+  retell: "kể lại",
+  rethink: "suy nghĩ lại",
+  retread: "đắp lại lốp; đi lại đường cũ",
+  retrofit: "cải tiến, trang bị bổ sung",
+  rewake: "đánh thức lại",
+  rewear: "mặc lại",
+  reweave: "dệt lại",
+  rewed: "kết hôn lại",
+  rewet: "làm ướt lại",
+  rewin: "thắng lại",
+  rewind: "cuộn lại; tua lại",
+  rewrite: "viết lại",
+  rid: "giải thoát, loại bỏ",
+  roughcast: "trát vữa thô",
+  "sand-cast": "đúc khuôn cát",
+  shave: "cạo, gọt",
+  shit: "đại tiện (tục)",
+  "sight-read": "đọc nhạc tại chỗ",
+  slay: "giết, hạ sát",
+  slink: "lẻn đi",
+  slit: "rạch, xẻ",
+  sneak: "lẻn, lén lút",
+  "spoon-feed": "đút ăn bằng thìa; hướng dẫn quá kỹ",
+  strew: "rải, vương vãi",
+  stride: "sải bước",
+  string: "xâu, xâu chuỗi",
+  sublet: "cho thuê lại",
+  sunburn: "làm cháy nắng",
+  sweat: "đổ mồ hôi",
+  telecast: "phát sóng truyền hình",
+  "test-drive": "lái thử",
+  "test-fly": "bay thử",
+  typecast: "đóng khung vai diễn",
+  typeset: "xếp chữ, dàn trang",
+  typewrite: "đánh máy",
+  unbend: "duỗi thẳng; bớt nghiêm nghị",
+  unbind: "tháo dây, giải phóng",
+  unclothe: "cởi quần áo",
+  underbid: "trả giá thấp hơn",
+  undercut: "bán rẻ hơn; cắt giảm",
+  underfeed: "cho ăn thiếu",
+  undergo: "trải qua, chịu đựng",
+  underlie: "là nền tảng của",
+  undersell: "bán rẻ hơn; đánh giá thấp",
+  underspend: "chi tiêu ít hơn dự kiến",
+  undertake: "đảm nhận, cam kết",
+  underwrite: "bảo lãnh; tài trợ",
+  undo: "tháo bỏ; hoàn tác",
+  unfreeze: "làm tan băng; giải phóng",
+  unhang: "gỡ xuống",
+  unhide: "hiện lại",
+  unknit: "tháo len đã đan",
+  unlearn: "bỏ thói quen hoặc kiến thức cũ",
+  unsew: "tháo đường may",
+  unsling: "tháo khỏi vai",
+  unspin: "tháo sợi; làm mất tác dụng",
+  unstick: "gỡ ra",
+  unstring: "tháo dây; làm mất bình tĩnh",
+  unweave: "tháo mối dệt",
+  unwind: "tháo cuộn; thư giãn",
+  uphold: "ủng hộ; duy trì",
+  upset: "làm buồn; lật đổ",
+  waylay: "chặn đường, phục kích",
+  wed: "kết hôn",
+  withdraw: "rút lui, rút tiền",
+  withhold: "giữ lại, khấu lưu",
+};
+
 const CORRECTIONS: Record<string, Partial<Verb>> = {
   read: { past_simple: "read (/red/)", past_participle: "read (/red/)" },
   kneel: { past_simple: "knelt/kneeled", past_participle: "knelt/kneeled" },
   sew: { past_simple: "sewed", past_participle: "sewn/sewed" },
 };
 
-const VERBS: Verb[] = verbData.verbs.map((verb) => ({
-  ...verb,
-  ...CORRECTIONS[verb.infinitive],
-  meaning: MEANINGS[verb.infinitive] ?? "",
-}));
+const existingVerbs = new Map(
+  verbData.verbs.map((verb) => [verb.infinitive, verb]),
+);
+const VERBS: Verb[] = Object.entries(irregularVerbData)
+  .slice(0, 360)
+  .map(([infinitive, forms]) => {
+    const existing = existingVerbs.get(infinitive);
+    const formAt = (index: number) =>
+      [...new Set(forms.map((form) => form[index]))].join("/");
+    return {
+      infinitive,
+      past_simple: existing?.past_simple ?? formAt(0),
+      past_participle: existing?.past_participle ?? formAt(1),
+      ...CORRECTIONS[infinitive],
+      meaning: MEANINGS[infinitive] ?? ADDITIONAL_MEANINGS[infinitive] ?? "",
+    };
+  })
+  .sort((first, second) => first.infinitive.localeCompare(second.infinitive));
 const FILTERS: { id: Filter; label: string }[] = [
   { id: "all", label: "Tất cả" },
   { id: "same", label: "Ba dạng giống nhau" },
@@ -302,7 +529,7 @@ export default function IrregularVerbTable() {
             Động từ bất quy tắc
           </h2>
           <p className="mt-1 text-sm text-ink/65">
-            {VERBS.length} mục gốc trong dữ liệu tra cứu
+            {VERBS.length} động từ, sắp xếp A–Z
           </p>
         </div>
         <label className="w-full sm:max-w-xs">
@@ -393,16 +620,22 @@ export default function IrregularVerbTable() {
         </table>
       </div>
       <p className="mt-3 text-xs leading-relaxed text-ink/55">
-        Dấu / phân cách các dạng thay thế. Bảng gồm 152 động từ gốc, không tính
-        mọi động từ ghép, biến thể cổ hoặc các mục hiếm. Dữ liệu gốc:
-        Franceskynov,{" "}
+        Dấu / phân cách các dạng thay thế. Danh sách gồm 360 động từ, bao gồm
+        một số động từ ghép và tiền tố. Nguồn dữ liệu: Ludan Stoecklé ({" "}
+        <a
+          className="underline underline-offset-2 hover:text-sea"
+          href="https://github.com/RosaeNLG/rosaenlg/tree/master/packages/english-verbs-irregular"
+        >
+          Apache 2.0
+        </a>
+        ) và Franceskynov ({" "}
         <a
           className="underline underline-offset-2 hover:text-sea"
           href="https://github.com/Franceskynov/node-english-irregular-verbs"
         >
-          node-english-irregular-verbs
+          MIT
         </a>
-        , MIT License.
+        ).
       </p>
     </section>
   );

@@ -18,6 +18,240 @@ export type LessonMaterial = {
 };
 
 export const LESSON_MATERIALS: Record<string, LessonMaterial> = {
+  vowels: {
+    introduction:
+      "Luyện nghe và phát âm các cặp nguyên âm ngắn - dài thường gặp. Độ dài là một dấu hiệu, nhưng khẩu hình và chất lượng nguyên âm cũng khác nhau; đừng chỉ kéo dài một âm để tạo âm kia.",
+    sections: [
+      {
+        title: "Phân biệt /ɪ/ và /iː/",
+        body: "Với /iː/, lưỡi nâng cao và âm thường kéo dài hơn. /ɪ/ ngắn, thả lỏng hơn. Đọc chậm từng cặp rồi đổi thứ tự để tự kiểm tra.",
+        examples: [
+          "ship /ʃɪp/ - sheep /ʃiːp/",
+          "sit /sɪt/ - seat /siːt/",
+          "live /lɪv/ - leave /liːv/",
+        ],
+      },
+      {
+        title: "Phân biệt /ʊ/ và /uː/",
+        body: "Cả hai âm đều dùng môi hơi tròn, nhưng /ʊ/ ngắn và thả lỏng hơn /uː/. Không thêm âm /u/ sau phụ âm cuối.",
+        examples: [
+          "full /fʊl/ - fool /fuːl/",
+          "pull /pʊl/ - pool /puːl/",
+          "look /lʊk/ - Luke /luːk/",
+        ],
+      },
+      {
+        title: "Nghe nguyên âm trong từ",
+        body: "Một chữ cái có thể đại diện cho nhiều âm khác nhau. Hãy nghe nguyên âm trong từ cụ thể, không đoán cách phát âm chỉ từ cách viết.",
+        examples: [
+          "cat /kæt/ - cut /kʌt/",
+          "bed /bed/ - bad /bæd/",
+          "Âm /æ/ thường có khẩu hình mở hơn /e/.",
+        ],
+      },
+    ],
+    check: {
+      prompt: "Từ nào có nguyên âm dài /iː/?",
+      options: ["ship /ʃɪp/", "sheep /ʃiːp/", "shop /ʃɒp/"],
+      answer: 1,
+      explanation: "Sheep có /iː/; ship có nguyên âm ngắn /ɪ/.",
+    },
+  },
+  consonants: {
+    introduction:
+      "Tập trung vào vị trí lưỡi và luồng hơi để phân biệt các phụ âm thường gây nhầm lẫn. Luyện âm riêng trước, rồi đọc từ và câu ngắn.",
+    sections: [
+      {
+        title: "Âm /θ/ và /ð/ viết là th",
+        body: "Đặt nhẹ đầu lưỡi giữa hai hàm răng và để hơi đi qua. /θ/ vô thanh, còn /ð/ hữu thanh; không thay bằng /t/, /d/ hoặc /s/.",
+        examples: [
+          "thin /θɪn/ - tin /tɪn/",
+          "thank /θæŋk/ - tank /tæŋk/",
+          "then /ðen/ - den /den/",
+        ],
+      },
+      {
+        title: "Âm /r/ trong tiếng Anh",
+        body: "Với /r/ ở đầu từ, đưa lưỡi về phía sau nhưng không chạm vòm miệng; không rung đầu lưỡi như nhiều cách phát âm r trong tiếng Việt. Cách phát âm r cuối từ thay đổi theo giọng.",
+        examples: [
+          "right /raɪt/ - light /laɪt/",
+          "red /red/ - led /led/",
+          "Luyện liền: red, road, arrive.",
+        ],
+      },
+      {
+        title: "Phân biệt /s/ và /ʃ/",
+        body: "/s/ được tạo gần chân răng với luồng hơi hẹp; /ʃ/ có lưỡi lùi nhẹ hơn và môi hơi tròn. Giữ âm liên tục, không thêm nguyên âm sau phụ âm.",
+        examples: [
+          "sip /sɪp/ - ship /ʃɪp/",
+          "see /siː/ - she /ʃiː/",
+          "Sue /suː/ - shoe /ʃuː/",
+        ],
+      },
+    ],
+    check: {
+      prompt: "Từ nào bắt đầu bằng âm /θ/?",
+      options: ["thin", "tin", "sin"],
+      answer: 0,
+      explanation:
+        "Thin bắt đầu bằng /θ/, âm th vô thanh; tin bắt đầu bằng /t/ và sin bằng /s/.",
+    },
+  },
+  "final-sounds": {
+    introduction:
+      "Phụ âm cuối giúp phân biệt từ và ngữ pháp. Phát âm rõ âm cuối nhưng không thêm một âm tiết /ə/ sau nó, trừ khi quy tắc yêu cầu âm /ɪz/ hoặc /ɪd/.",
+    sections: [
+      {
+        title: "Đuôi -s/-es có ba cách đọc",
+        body: "Đọc /s/ sau âm vô thanh không thuộc nhóm âm xuýt; đọc /z/ sau nguyên âm hoặc âm hữu thanh không thuộc nhóm đó; thêm một âm tiết /ɪz/ sau /s, z, ʃ, ʒ, tʃ, dʒ/.",
+        examples: [
+          "cats /kæts/: /s/ sau /t/",
+          "dogs /dɔːɡz/: /z/ sau /ɡ/",
+          "washes /ˈwɒʃɪz/: /ɪz/ sau /ʃ/",
+        ],
+      },
+      {
+        title: "Đuôi -ed có ba cách đọc",
+        body: "Đọc /t/ sau âm vô thanh (trừ /t/), /d/ sau nguyên âm hoặc âm hữu thanh (trừ /d/); đọc /ɪd/ sau /t/ và /d/. Chữ cái cuối không quyết định một mình cách đọc, hãy xét âm cuối của động từ.",
+        examples: [
+          "worked /wɜːrkt/: /t/ sau /k/",
+          "played /pleɪd/: /d/ sau nguyên âm",
+          "wanted /ˈwɒntɪd/: /ɪd/ sau /t/",
+        ],
+      },
+      {
+        title: "Giữ rõ /t/ và /d/ cuối từ",
+        body: "Kết thúc từ bằng một lần chặn hoặc nhả nhẹ luồng hơi; tránh thêm nguyên âm khiến từ có thêm âm tiết. Phân biệt âm vô thanh /t/ với âm hữu thanh /d/.",
+        examples: [
+          "cap /kæp/ - cat /kæt/",
+          "back /bæk/ - bad /bæd/",
+          "Đọc gọn: asked /æskt/, played /pleɪd/.",
+        ],
+      },
+    ],
+    check: {
+      prompt: "Đuôi -ed trong wanted được đọc thế nào?",
+      options: ["/t/", "/d/", "/ɪd/"],
+      answer: 2,
+      explanation:
+        "Want kết thúc bằng /t/, nên -ed được đọc thành âm tiết /ɪd/: wanted /ˈwɒntɪd/.",
+    },
+  },
+  "word-stress": {
+    introduction:
+      "Trọng âm là âm tiết được làm nổi bật hơn trong một từ. Đặt đúng trọng âm giúp người nghe nhận ra từ nhanh hơn, kể cả khi các âm riêng lẻ đã khá rõ.",
+    sections: [
+      {
+        title: "Nhận biết âm tiết được nhấn",
+        body: "Âm tiết mang trọng âm thường nổi bật hơn về độ dài, độ cao hoặc độ rõ. Trong từ điển, dấu /ˈ/ được đặt ngay trước âm tiết mang trọng âm chính.",
+        examples: [
+          "TAble /ˈteɪbəl/: trọng âm ở âm tiết đầu",
+          "beGIN /bɪˈɡɪn/: trọng âm ở âm tiết thứ hai",
+          "aBOUT /əˈbaʊt/: trọng âm ở âm tiết thứ hai",
+        ],
+      },
+      {
+        title: "Đọc nhẹ âm tiết không nhấn",
+        body: "Âm tiết không mang trọng âm thường ngắn và nhẹ; nguyên âm có thể chuyển thành schwa /ə/. Tránh đọc mọi âm tiết với lực như nhau.",
+        examples: [
+          "about /əˈbaʊt/: âm đầu /ə/ nhẹ",
+          "banana /bəˈnɑːnə/: nhấn âm tiết giữa",
+          "computer /kəmˈpjuːtər/: nhấn âm tiết giữa",
+        ],
+      },
+      {
+        title: "Trọng âm có thể đổi theo từ",
+        body: "Một số từ đổi trọng âm theo từ loại hoặc dạng từ. Hãy tra và học trọng âm cùng với nghĩa, thay vì mặc định một quy tắc cho mọi từ.",
+        examples: [
+          "REcord (danh từ) - reCORD (động từ)",
+          "PHOtograph - phoTOgraphy",
+          "Đọc rõ âm tiết nhấn, làm các âm tiết còn lại nhẹ hơn.",
+        ],
+      },
+    ],
+    check: {
+      prompt: "Dấu /ˈ/ trong /əˈbaʊt/ đứng trước âm tiết nào?",
+      options: ["Âm tiết thứ nhất", "Âm tiết thứ hai", "Âm cuối của từ"],
+      answer: 1,
+      explanation:
+        "Dấu /ˈ/ đứng ngay trước âm tiết mang trọng âm chính; trong about đó là /baʊt/.",
+    },
+  },
+  "minimal-pairs": {
+    introduction:
+      "Cặp âm tối thiểu là hai từ chỉ khác nhau một âm nhưng có nghĩa khác nhau. Luyện nghe từng cặp giúp nhận ra âm mục tiêu trong lời nói.",
+    sections: [
+      {
+        title: "Nghe nguyên âm khác nhau",
+        body: "Nghe hoặc đọc từng từ theo thứ tự ngẫu nhiên. Xác định nguyên âm trước, sau đó nói từ và kiểm tra nghĩa.",
+        examples: [
+          "ship /ʃɪp/ - sheep /ʃiːp/",
+          "full /fʊl/ - fool /fuːl/",
+          "bed /bed/ - bad /bæd/",
+        ],
+      },
+      {
+        title: "Nghe phụ âm khác nhau",
+        body: "Giữ các phần còn lại của từ giống nhau và chỉ tập trung vào phụ âm mục tiêu. Với /θ/, đặt đầu lưỡi nhẹ giữa hai răng.",
+        examples: [
+          "thin /θɪn/ - tin /tɪn/",
+          "right /raɪt/ - light /laɪt/",
+          "sip /sɪp/ - ship /ʃɪp/",
+        ],
+      },
+      {
+        title: "Tự luyện nghe và nói",
+        body: "Che phiên âm, nhờ người khác đọc hoặc dùng giọng đọc trên thiết bị làm mẫu. Ghi lại từ mình nghe được, rồi đọc lại cặp từ và nêu điểm khác nhau.",
+        examples: [
+          "cap /kæp/ - cab /kæb/: phụ âm cuối",
+          "fan /fæn/ - van /væn/: âm đầu",
+          "seat /siːt/ - sit /sɪt/: nguyên âm",
+        ],
+      },
+    ],
+    check: {
+      prompt: "Từ nào trong cặp sip - ship bắt đầu bằng /ʃ/?",
+      options: ["sip", "ship", "Cả hai"],
+      answer: 1,
+      explanation: "Ship bắt đầu bằng /ʃ/; sip bắt đầu bằng /s/.",
+    },
+  },
+  "sounds-check": {
+    introduction:
+      "Tổng ôn các kỹ năng của module: phân biệt nguyên âm, đặt đúng vị trí lưỡi cho phụ âm, đọc rõ đuôi từ và nhận ra trọng âm.",
+    sections: [
+      {
+        title: "Ôn nguyên âm và phụ âm",
+        body: "Đọc mỗi cặp thành tiếng, rồi tự nêu âm khác nhau. Ưu tiên độ chính xác trước khi tăng tốc.",
+        examples: [
+          "ship /ʃɪp/ - sheep /ʃiːp/: /ɪ/ và /iː/",
+          "thin /θɪn/ - tin /tɪn/: /θ/ và /t/",
+          "sip /sɪp/ - ship /ʃɪp/: /s/ và /ʃ/",
+        ],
+      },
+      {
+        title: "Ôn âm cuối và đuôi từ",
+        body: "Nhớ quy tắc theo âm ngay trước đuôi: -s đọc /s/, /z/ hoặc /ɪz/; -ed đọc /t/, /d/ hoặc /ɪd/. Không tự thêm nguyên âm sau âm cuối.",
+        examples: [
+          "cats /s/ - dogs /z/ - washes /ɪz/",
+          "worked /t/ - played /d/ - wanted /ɪd/",
+          "Phân biệt cap /kæp/ với cab /kæb/.",
+        ],
+      },
+      {
+        title: "Ôn trọng âm",
+        body: "Tìm dấu /ˈ/ trong phiên âm, nhấn rõ âm tiết đó và đọc nhẹ các âm tiết còn lại. Tập nghe cả từ thay vì chỉ đánh vần.",
+        examples: ["TAble /ˈteɪbəl/", "beGIN /bɪˈɡɪn/", "aBOUT /əˈbaʊt/"],
+      },
+    ],
+    check: {
+      prompt: "Trong câu hỏi về đuôi -ed, từ nào có đuôi được đọc thành /ɪd/?",
+      options: ["worked", "played", "wanted"],
+      answer: 2,
+      explanation:
+        "Wanted kết thúc gốc bằng /t/, nên thêm âm tiết /ɪd/. Worked có /t/ và played có /d/.",
+    },
+  },
   "a-e": {
     introduction:
       "Làm quen năm chữ cái đầu tiên. Hãy phân biệt tên chữ cái khi đọc bảng chữ cái với âm mà chữ đó biểu thị trong một từ.",

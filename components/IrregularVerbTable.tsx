@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useState } from "react";
-import { Volume2 } from "lucide-react";
+import SpeakButton from "@/components/SpeakButton";
 import verbData from "node-english-irregular-verbs";
 import irregularVerbData from "@/lib/irregular-verbs.json";
 
@@ -425,14 +425,6 @@ function matchesFilter(verb: Verb, filter: Filter) {
   return true;
 }
 
-function speakWord(word: string) {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = "en-US";
-  window.speechSynthesis.speak(utterance);
-}
-
 function exampleFor(verb: Verb, form: "base" | "past" | "participle") {
   const word = verb[
     form === "base"
@@ -482,19 +474,11 @@ function PronouncedForms({ value }: { value: string }) {
         >
           {index > 0 && <span aria-hidden="true">/</span>}
           <span>{form}</span>
-          <button
-            type="button"
-            onClick={() =>
-              speakWord(
-                form === "read" && pronunciation === "/red/" ? "red" : form,
-              )
-            }
-            aria-label={`Phát âm ${form}`}
-            title={`Phát âm ${form}`}
-            className="inline-flex size-7 items-center justify-center rounded-md text-ink/55 hover:bg-mist hover:text-sea"
-          >
-            <Volume2 size={15} aria-hidden="true" />
-          </button>
+          <SpeakButton
+            text={form === "read" && pronunciation === "/red/" ? "red" : form}
+            label={`Phát âm ${form}`}
+            className="size-7"
+          />
         </span>
       ))}
       {pronunciation && <span className="text-ink/55">({pronunciation})</span>}

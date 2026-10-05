@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Volume2 } from "lucide-react";
 import { ALPHABET } from "@/lib/data";
+import SpeakButton from "@/components/SpeakButton";
 
 function speak(text: string) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "en-US";
-  u.rate = 1;
-  window.speechSynthesis.speak(u);
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  window.speechSynthesis.speak(utterance);
 }
 
 export default function AlphabetBoard() {
@@ -32,7 +31,7 @@ export default function AlphabetBoard() {
               key={l}
               onClick={() => {
                 setI(idx);
-                speak(l.toLocaleLowerCase());
+                speak(l.toLowerCase());
               }}
               aria-pressed={idx === i}
               className={`aspect-square rounded-xl font-display text-xl font-bold transition-colors ${
@@ -45,6 +44,21 @@ export default function AlphabetBoard() {
             </button>
           ))}
         </div>
+      </div>
+      <div className="mt-5 flex items-center justify-between gap-4 border-t border-mist pt-4">
+        <div>
+          <p className="font-display text-2xl font-bold">
+            {letter}{" "}
+            <span className="text-base font-medium text-ink/55">{viet}</span>
+          </p>
+          <p className="mt-1 text-sm text-ink/70">
+            <span className="font-semibold text-ink">{word}</span> · {meaning}
+          </p>
+        </div>
+        <SpeakButton
+          text={`${letter.toLowerCase()}. ${word}`}
+          label={`Đọc chữ ${letter} và từ ${word}`}
+        />
       </div>
     </section>
   );

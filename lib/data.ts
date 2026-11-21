@@ -45,6 +45,18 @@ export type Module = {
   lessons: Lesson[];
 };
 
+export function getModuleMinutes(module: Module): number {
+  return module.lessons.reduce((sum, lesson) => sum + lesson.minutes, 0);
+}
+
+export function getTotalMinutes(modules: Module[]): number {
+  return modules.reduce((sum, mod) => sum + getModuleMinutes(mod), 0);
+}
+
+export function getTotalLessons(modules: Module[]): number {
+  return modules.reduce((sum, mod) => sum + mod.lessons.length, 0);
+}
+
 export const LEVEL0_MODULES: Module[] = [
   {
     slug: "alphabet",

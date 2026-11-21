@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Clock, Lock } from "lucide-react";
-import { LEVELS, LEVEL0_MODULES, SKILLS, type SkillKey } from "@/lib/data";
+import {
+  LEVELS,
+  LEVEL0_MODULES,
+  SKILLS,
+  getModuleMinutes,
+  getTotalLessons,
+  getTotalMinutes,
+  type SkillKey,
+} from "@/lib/data";
 import Breadcrumb from "@/components/Breadcrumb";
 import SkillIcon from "@/components/SkillIcon";
 import SkillChip from "@/components/SkillChip";
@@ -16,8 +24,8 @@ export default function LevelPage({ params }: { params: { id: string } }) {
 
   const open = level.status === "open";
   const modules = open ? LEVEL0_MODULES : [];
-  const lessonCount = modules.reduce((n, m) => n + m.lessons.length, 0);
-  const minutes = modules.reduce((n, m) => n + m.lessons.reduce((a, l) => a + l.minutes, 0), 0);
+  const lessonCount = getTotalLessons(modules);
+  const minutes = getTotalMinutes(modules);
 
   const countBySkill = (k: SkillKey) =>
     modules.reduce((n, m) => n + m.lessons.filter((l) => l.skills.includes(k)).length, 0);
@@ -46,7 +54,7 @@ export default function LevelPage({ params }: { params: { id: string } }) {
           <h2 id="modules" className="font-display text-2xl font-bold">Các module của Level 0</h2>
           <ol className="mt-5 grid gap-4 md:grid-cols-3">
             {modules.map((m, idx) => {
-              const mins = m.lessons.reduce((a, l) => a + l.minutes, 0);
+              const mins = getModuleMinutes(m);
               const skills = Array.from(new Set(m.lessons.flatMap((l) => l.skills)));
               return (
                 <li key={m.slug}>

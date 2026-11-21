@@ -51,6 +51,13 @@ export type ExerciseQuestion =
       explanation: string;
     };
 
+export type MultipleChoiceQuestion = Extract<ExerciseQuestion, { kind: "multiple-choice" }>;
+export type SentenceOrderingQuestion = Extract<ExerciseQuestion, { kind: "sentence-ordering" }>;
+export type FillBlankQuestion = Extract<ExerciseQuestion, { kind: "fill-blank" }>;
+export type WordFormationQuestion = Extract<ExerciseQuestion, { kind: "word-formation" }>;
+export type ErrorCorrectionQuestion = Extract<ExerciseQuestion, { kind: "error-correction" }>;
+export type SentenceTransformationQuestion = Extract<ExerciseQuestion, { kind: "sentence-transformation" }>;
+
 type PracticeTypeSeed = {
   id: string;
   title: string;
@@ -426,7 +433,8 @@ function generatedQuestion(
       const prefixes = lessonNumber === 1
         ? ["", "During the meeting, ", "In our English class, ", "According to the report, ", "At yesterday's event, "]
         : ["", "This morning, ", "For many students, ", "At the conference, ", "In the final review, "];
-      const sentence = `${prefixes[Math.floor(index / wordFamilies.length)]}${family.sentence}`;
+      const prefix = prefixes[Math.floor(index / wordFamilies.length) % prefixes.length];
+      const sentence = `${prefix}${family.sentence}`;
       const [before, after] = sentence.split("_____");
       return {
         id,
@@ -510,3 +518,23 @@ export const PRACTICE_TYPES: PracticeType[] = PRACTICE_TYPE_SEEDS.map((seed) => 
     };
   }),
 }));
+
+export function getPracticeType(typeId: string): PracticeType | undefined {
+  return PRACTICE_TYPES.find(({ id }) => id === typeId);
+}
+
+export function getPracticeLesson(typeId: string, lessonId: string) {
+  const exercise = getPracticeType(typeId);
+  if (!exercise) return undefined;
+
+  const lessonIndex = exercise.lessons.findIndex(({ id }) => id === lessonId);
+  if (lessonIndex < 0) return undefined;
+
+  return {
+    exercise,
+    lesson: exercise.lessons[lessonIndex],
+    lessonIndex,
+    previousLesson: exercise.lessons[lessonIndex - 1],
+    nextLesson: exercise.lessons[lessonIndex + 1],
+  };
+}

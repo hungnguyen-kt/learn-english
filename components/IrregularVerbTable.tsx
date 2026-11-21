@@ -425,34 +425,42 @@ function matchesFilter(verb: Verb, filter: Filter) {
   return true;
 }
 
-function exampleFor(verb: Verb, form: "base" | "past" | "participle") {
-  const word = verb[
-    form === "base"
-      ? "infinitive"
-      : form === "past"
-        ? "past_simple"
-        : "past_participle"
-  ]
+function cleanVerbForms(value: string): string[] {
+  return value
     .replace(/\s*\([^)]*\)/g, "")
-    .split("/")[0]
-    .trim();
+    .split("/")
+    .map((form) => form.trim());
+}
 
-  if (verb.infinitive === "be") {
-    if (form === "base") return "I want to be kind.";
-    if (form === "past") return "I was kind yesterday.";
-    return "I have been kind.";
-  }
-  if (verb.infinitive === "have") {
-    if (form === "base") return "I want to have a dog.";
-    if (form === "past") return "I had a dog.";
-    return "I have had a dog.";
-  }
-  if (verb.infinitive === "cost") {
-    if (form === "base") return "It may cost five dollars.";
-    if (form === "past") return "It cost five dollars yesterday.";
-    return "It has cost five dollars.";
-  }
+const FORM_KEYS = {
+  base: "infinitive",
+  past: "past_simple",
+  participle: "past_participle",
+} as const;
 
+const SPECIAL_EXAMPLES: Record<string, Record<"base" | "past" | "participle", string>> = {
+  be: {
+    base: "I want to be kind.",
+    past: "I was kind yesterday.",
+    participle: "I have been kind.",
+  },
+  have: {
+    base: "I want to have a dog.",
+    past: "I had a dog.",
+    participle: "I have had a dog.",
+  },
+  cost: {
+    base: "It may cost five dollars.",
+    past: "It cost five dollars yesterday.",
+    participle: "It has cost five dollars.",
+  },
+};
+
+function exampleFor(verb: Verb, form: "base" | "past" | "participle"): string {
+  const special = SPECIAL_EXAMPLES[verb.infinitive];
+  if (special) return special[form];
+
+  const word = cleanVerbForms(verb[FORM_KEYS[form]])[0];
   if (form === "base") return `I want to ${word}.`;
   if (form === "past") return `I ${word} yesterday.`;
   return `I have ${word}.`;
@@ -460,10 +468,7 @@ function exampleFor(verb: Verb, form: "base" | "past" | "participle") {
 
 function PronouncedForms({ value }: { value: string }) {
   const pronunciation = value.match(/\(([^)]+)\)/)?.[1];
-  const forms = value
-    .replace(/\s*\([^)]*\)/g, "")
-    .split("/")
-    .map((form) => form.trim());
+  const forms = cleanVerbForms(value);
 
   return (
     <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">

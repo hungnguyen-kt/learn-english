@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, LockKeyhole, Play } from "lucide-react";
 import type { PracticeLesson } from "@/lib/practice-exercises";
-import { isLessonCompleted } from "@/lib/practice-progress";
+import { getCompletedLessonIds } from "@/lib/practice-progress";
 
 export default function PracticeLessonList({
   typeId,
@@ -16,11 +16,7 @@ export default function PracticeLessonList({
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
 
   useEffect(() => {
-    setCompletedLessons(
-      lessons
-        .filter((lesson) => isLessonCompleted(typeId, lesson.id))
-        .map((lesson) => lesson.id),
-    );
+    setCompletedLessons(getCompletedLessonIds(typeId, lessons.map((l) => l.id)));
   }, [lessons, typeId]);
 
   return (

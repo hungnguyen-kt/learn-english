@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpenCheck } from "lucide-react";
 import PracticeLessonList from "@/components/PracticeLessonList";
-import { PRACTICE_TYPES } from "@/lib/practice-exercises";
+import { PRACTICE_TYPES, getPracticeType } from "@/lib/practice-exercises";
 
 export function generateStaticParams() {
   return PRACTICE_TYPES.map(({ id }) => ({ type: id }));
@@ -13,7 +13,7 @@ export default function PracticeTypePage({
 }: {
   params: { type: string };
 }) {
-  const exercise = PRACTICE_TYPES.find(({ id }) => id === params.type);
+  const exercise = getPracticeType(params.type);
   if (!exercise) notFound();
 
   return (

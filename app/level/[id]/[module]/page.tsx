@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock, PlayCircle } from "lucide-react";
-import { LEVEL0_MODULES, SKILLS } from "@/lib/data";
+import { LEVEL0_MODULES, SKILLS, getModuleMinutes } from "@/lib/data";
 import Breadcrumb from "@/components/Breadcrumb";
 import SkillChip from "@/components/SkillChip";
 import SkillIcon from "@/components/SkillIcon";
@@ -21,7 +21,7 @@ export default function ModulePage({ params }: { params: { id: string; module: s
   const mod = LEVEL0_MODULES[idx];
   const prev = LEVEL0_MODULES[idx - 1];
   const next = LEVEL0_MODULES[idx + 1];
-  const total = mod.lessons.reduce((a, l) => a + l.minutes, 0);
+  const total = getModuleMinutes(mod);
 
   return (
     <>

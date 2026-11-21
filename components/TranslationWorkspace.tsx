@@ -16,6 +16,7 @@ import {
   Volume2,
 } from "lucide-react";
 import type { TranslationArticle } from "@/lib/translation-articles";
+import { speak, stopSpeech } from "@/lib/speech";
 
 type Tab = "read" | "vocabulary" | "grammar" | "practice";
 
@@ -44,15 +45,16 @@ export default function TranslationWorkspace({
 
   function toggleSpeech() {
     if (isSpeaking) {
-      window.speechSynthesis.cancel();
+      stopSpeech();
       setIsSpeaking(false);
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(article.source.join(" "));
-    utterance.lang = isEnglish ? "en-US" : "ja-JP";
-    utterance.onend = () => setIsSpeaking(false);
-    window.speechSynthesis.speak(utterance);
+    speak(article.source.join(" "), {
+      lang: isEnglish ? "en-US" : "ja-JP",
+      onEnd: () => setIsSpeaking(false),
+      onError: () => setIsSpeaking(false),
+    });
     setIsSpeaking(true);
   }
 

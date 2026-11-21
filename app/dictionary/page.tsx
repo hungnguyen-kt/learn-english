@@ -98,13 +98,8 @@ const ENTRIES: DictionaryEntry[] = [
   },
 ];
 
-function speak(text: string, accent: "en-GB" | "en-US") {
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = accent;
-  window.speechSynthesis.speak(utterance);
-}
+import { speak } from "@/lib/speech";
+import SpeakButton from "@/components/SpeakButton";
 
 function PronunciationCard({
   country,
@@ -125,7 +120,7 @@ function PronunciationCard({
       <button
         type="button"
         aria-label={`Nghe phát âm ${label}`}
-        onClick={() => speak(word, accent)}
+        onClick={() => speak(word, { lang: accent })}
         className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-600 text-white transition-colors hover:bg-blue-700"
       >
         <Volume2 size={20} aria-hidden />
@@ -261,14 +256,12 @@ export default function DictionaryPage() {
                       <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{definition.translation}</p>
                       <div className="mt-2 flex items-center gap-3 rounded-lg bg-slate-50 p-2.5">
                         <span className="shrink-0 text-xs text-slate-500">Ví dụ</span>
-                        <button
-                          type="button"
-                          aria-label={`Nghe ví dụ: ${definition.example}`}
-                          onClick={() => speak(definition.example, "en-GB")}
-                          className="shrink-0 text-blue-600 transition-colors hover:text-blue-800"
-                        >
-                          <Volume2 size={17} aria-hidden />
-                        </button>
+                        <SpeakButton
+                          text={definition.example}
+                          label={`Nghe ví dụ: ${definition.example}`}
+                          lang="en-GB"
+                          className="shrink-0 text-blue-600 hover:text-blue-800"
+                        />
                         <div className="min-w-0">
                           <p className="text-xs text-ink">{definition.example}</p>
                           <p className="mt-0.5 text-xs text-slate-500">{definition.exampleTranslation}</p>

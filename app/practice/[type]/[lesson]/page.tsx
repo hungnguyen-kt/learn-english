@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import PracticeLessonRunner from "@/components/PracticeLessonRunner";
-import { PRACTICE_TYPES } from "@/lib/practice-exercises";
+import { PRACTICE_TYPES, getPracticeLesson } from "@/lib/practice-exercises";
 
 export function generateStaticParams() {
   return PRACTICE_TYPES.flatMap((exercise) =>
@@ -16,19 +16,16 @@ export default function PracticeLessonPage({
 }: {
   params: { type: string; lesson: string };
 }) {
-  const exercise = PRACTICE_TYPES.find(({ id }) => id === params.type);
-  if (!exercise) notFound();
-
-  const lessonIndex = exercise.lessons.findIndex(({ id }) => id === params.lesson);
-  if (lessonIndex < 0) notFound();
+  const match = getPracticeLesson(params.type, params.lesson);
+  if (!match) notFound();
 
   return (
     <PracticeLessonRunner
-      typeId={exercise.id}
-      typeTitle={exercise.title}
-      lesson={exercise.lessons[lessonIndex]}
-      previousLesson={exercise.lessons[lessonIndex - 1]}
-      nextLesson={exercise.lessons[lessonIndex + 1]}
+      typeId={match.exercise.id}
+      typeTitle={match.exercise.title}
+      lesson={match.lesson}
+      previousLesson={match.previousLesson}
+      nextLesson={match.nextLesson}
     />
   );
 }

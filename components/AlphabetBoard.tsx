@@ -3,14 +3,7 @@
 import { useState } from "react";
 import { ALPHABET } from "@/lib/data";
 import SpeakButton from "@/components/SpeakButton";
-
-function speak(text: string) {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "en-US";
-  window.speechSynthesis.speak(utterance);
-}
+import { speak } from "@/lib/speech";
 
 export default function AlphabetBoard() {
   const [i, setI] = useState(0);

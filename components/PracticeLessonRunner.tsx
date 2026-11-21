@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
 import ExerciseQuestionList from "@/components/ExerciseQuestionList";
 import type { PracticeLesson } from "@/lib/practice-exercises";
 import {
@@ -91,13 +91,23 @@ export default function PracticeLessonRunner({
           <p className="mt-1 text-sm text-emerald-800">
             Làm tốt lắm. Bạn đã sẵn sàng chuyển sang bài tiếp theo.
           </p>
-          <Link
-            href={nextLesson ? `/practice/${typeId}/${nextLesson.id}` : `/practice/${typeId}`}
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-          >
-            {nextLesson ? `Bắt đầu ${nextLesson.title}` : "Quay lại dạng bài"}
-            <ArrowRight size={16} aria-hidden />
-          </Link>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <Link
+              href={nextLesson ? `/practice/${typeId}/${nextLesson.id}` : `/practice/${typeId}`}
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              {nextLesson ? `Bắt đầu ${nextLesson.title}` : "Quay lại dạng bài"}
+              <ArrowRight size={16} aria-hidden />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setCompleted(false)}
+              className="inline-flex items-center gap-2 rounded-lg border border-emerald-300 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-100/60"
+            >
+              <RotateCcw size={16} aria-hidden />
+              Làm lại bài này
+            </button>
+          </div>
         </section>
       ) : (
         <ExerciseQuestionList

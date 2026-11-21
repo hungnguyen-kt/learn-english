@@ -2,11 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, RotateCcw, Dumbbell, Languages, Lock, GraduationCap } from "lucide-react";
+import {
+  Home,
+  RotateCcw,
+  Dumbbell,
+  Languages,
+  Lock,
+  GraduationCap,
+  Book,
+} from "lucide-react";
 import { LEVELS } from "@/lib/data";
 
 const NAV = [
   { href: "/", label: "Trang chủ", icon: Home },
+  { href: "/dictionary", label: "Từ điển", icon: Book },
   { href: "/review", label: "Ôn tập", icon: RotateCcw },
   { href: "/practice", label: "Luyện tập", icon: Dumbbell },
   { href: "/translate", label: "Dịch văn bản", icon: Languages },
@@ -14,7 +23,9 @@ const NAV = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const activeLevel = pathname.startsWith("/level/") ? Number(pathname.split("/")[2]) : null;
+  const activeLevel = pathname.startsWith("/level/")
+    ? Number(pathname.split("/")[2])
+    : null;
   const activeNavigationIndex = NAV.findIndex(({ href }) =>
     href === "/"
       ? pathname === href
@@ -54,7 +65,9 @@ export default function Sidebar() {
               href={href}
               aria-current={active ? "page" : undefined}
               className={`relative z-10 flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-300 ease-in-out ${
-                active ? "text-ink" : "text-white/70 hover:bg-white/8 hover:text-white"
+                active
+                  ? "text-ink"
+                  : "text-white/70 hover:bg-white/8 hover:text-white"
               }`}
             >
               <Icon size={18} aria-hidden />
@@ -84,11 +97,15 @@ export default function Sidebar() {
                   active ? "bg-lime-300" : "hover:bg-white/8"
                 } ${active ? "text-ink" : open ? "text-white" : "text-white/55"}`}
               >
-                <span className={`flex items-center justify-between text-xs font-medium transition-colors duration-300 ease-in-out ${active ? "text-ink/70" : "text-white/60"}`}>
+                <span
+                  className={`flex items-center justify-between text-xs font-medium transition-colors duration-300 ease-in-out ${active ? "text-ink/70" : "text-white/60"}`}
+                >
                   Level {lv.id} · {lv.code}
                   {!open && <Lock size={12} aria-label="Sắp ra mắt" />}
                 </span>
-                <span className="block text-sm font-semibold leading-snug">{lv.title}</span>
+                <span className="block text-sm font-semibold leading-snug">
+                  {lv.title}
+                </span>
               </Link>
             </li>
           );

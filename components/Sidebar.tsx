@@ -15,6 +15,11 @@ const NAV = [
 export default function Sidebar() {
   const pathname = usePathname();
   const activeLevel = pathname.startsWith("/level/") ? Number(pathname.split("/")[2]) : null;
+  const activeNavigationIndex = NAV.findIndex(({ href }) =>
+    href === "/"
+      ? pathname === href
+      : pathname === href || pathname.startsWith(`${href}/`),
+  );
 
   return (
     <aside
@@ -33,16 +38,23 @@ export default function Sidebar() {
         </span>
       </Link>
 
-      <nav className="mb-8 space-y-1">
-        {NAV.map(({ href, label, icon: Icon }) => {
-          const active = pathname === href;
+      <nav className="relative mb-8 flex flex-col gap-1">
+        {activeNavigationIndex >= 0 && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-10 rounded-lg bg-lime-300 transition-transform duration-300 ease-in-out"
+            style={{ transform: `translateY(${activeNavigationIndex * 44}px)` }}
+          />
+        )}
+        {NAV.map(({ href, label, icon: Icon }, index) => {
+          const active = activeNavigationIndex === index;
           return (
             <Link
               key={href}
               href={href}
               aria-current={active ? "page" : undefined}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                active ? "bg-white/12 text-white" : "text-white/70 hover:bg-white/8 hover:text-white"
+              className={`relative z-10 flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-300 ease-in-out ${
+                active ? "text-ink" : "text-white/70 hover:bg-white/8 hover:text-white"
               }`}
             >
               <Icon size={18} aria-hidden />
@@ -61,18 +73,18 @@ export default function Sidebar() {
             <li key={lv.id} className="relative pl-6">
               <span
                 aria-hidden
-                className={`absolute -left-[9px] top-4 grid h-4 w-4 place-items-center rounded-full border-2 border-ink ${
-                  active ? "bg-sun" : open ? "bg-sea" : "bg-white/25"
+                className={`absolute -left-[9px] top-4 grid h-4 w-4 place-items-center rounded-full border-2 border-ink transition-colors duration-300 ease-in-out ${
+                  active ? "bg-lime-300" : open ? "bg-sea" : "bg-white/25"
                 }`}
               />
               <Link
                 href={`/level/${lv.id}`}
                 aria-current={active ? "page" : undefined}
-                className={`my-0.5 block rounded-lg px-3 py-2 transition-colors ${
-                  active ? "bg-white/12" : "hover:bg-white/8"
-                } ${open ? "text-white" : "text-white/55"}`}
+                className={`my-0.5 block rounded-lg px-3 py-2 transition-colors duration-300 ease-in-out ${
+                  active ? "bg-lime-300" : "hover:bg-white/8"
+                } ${active ? "text-ink" : open ? "text-white" : "text-white/55"}`}
               >
-                <span className="flex items-center justify-between text-xs font-medium text-white/60">
+                <span className={`flex items-center justify-between text-xs font-medium transition-colors duration-300 ease-in-out ${active ? "text-ink/70" : "text-white/60"}`}>
                   Level {lv.id} · {lv.code}
                   {!open && <Lock size={12} aria-label="Sắp ra mắt" />}
                 </span>

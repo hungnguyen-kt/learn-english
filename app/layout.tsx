@@ -27,7 +27,7 @@ export default function RootLayout({
         <Sidebar />
         <MobileBar />
         <div className="lg:pl-72">
-          <main className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-8 lg:py-12">
+          <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-8 lg:py-12">
             {children}
           </main>
         </div>

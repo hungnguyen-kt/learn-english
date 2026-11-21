@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, RotateCcw, Dumbbell, Lock, GraduationCap } from "lucide-react";
+import { Home, RotateCcw, Dumbbell, Languages, Lock, GraduationCap } from "lucide-react";
 import { LEVELS } from "@/lib/data";
 
 const NAV = [
   { href: "/", label: "Trang chủ", icon: Home },
   { href: "/review", label: "Ôn tập", icon: RotateCcw },
   { href: "/practice", label: "Luyện tập", icon: Dumbbell },
+  { href: "/translate", label: "Dịch văn bản", icon: Languages },
 ];
 
 export default function Sidebar() {

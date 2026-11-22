@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { LEVELS } from "@/lib/data";
 
-const NAV = [
+export const NAV = [
   { href: "/", label: "Trang chủ", icon: Home },
   { href: "/dictionary", label: "Từ điển", icon: Book },
   { href: "/review", label: "Ôn tập", icon: RotateCcw },
